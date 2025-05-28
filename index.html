@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>matchGame</title>
+	<style type="text/css">
+		.row{
+			display: flex;
+			flex-wrap: wrap;
+			width: 800px;
+			height: 200px;
+		}
+		.item{
+			width: 180px;
+			height: 180px;
+			background: red;
+			background-size: cover;
+			border: 5px solid white;
+		}
+		.active{
+			border: 3px solid black;
+		}
+	</style>
+</head>
+<body>
+	<div class="row"></div>
+
+	<script type="text/javascript">
+		let row = document.querySelector(".row")
+		let images = ["1.png", "2.png","3.png","4.png","5.png","6.png", "1.png", "2.png","3.png","4.png","5.png","6.png",]
+		let step = 0
+		let img
+		let firstDiv
+
+		for(i=0; i<12; i=i+1){
+			let createItem = document.createElement("div")
+			row.appendChild(createItem)
+			createItem.classList.add("item")
+
+			let index = Math.round(Math.random()*(images.length-1))
+			createItem.style.backgroundImage = "url("+images[index]+")"
+			images.splice(index,1)
+
+			createItem.onclick = function(){
+				step = step + 1
+				if(step==1){
+					img = createItem.style.backgroundImage
+					createItem.classList.add("active")
+					firstDiv = createItem
+				}
+
+				if(step>=2){
+					if(createItem.style.backgroundImage ==img){
+						createItem.classList.add("active")
+						createItem.style.opacity = "0"
+						firstDiv.style.opacity = "0"
+						step = 0
+					} else{
+						firstDiv.classList.remove("active")
+						step = 0
+					}
+				}
+			}
+		}
+
+
+	</script>
+
+
+</body>
+</html>
